@@ -27,7 +27,13 @@ RUN mv /node /node_
 WORKDIR /node
 VOLUME ["/node"]
 
-CMD /check.sh /node ; /etc/init.d/ssh start ; /node/start.sh
+RUN echo $(date "+%Y-%m-%d_%H:%M:%S") >> /.image_time
+RUN echo "land007/ubuntu-node" >> /.image_name
+
 EXPOSE 80/tcp
+#CMD /check.sh /node ; /etc/init.d/ssh start ; /node/start.sh
+RUN echo "/check.sh /node" >> /start.sh
+#RUN echo "supervisor -w /node/ /node/server.js" >> /start.sh
+RUN echo "/usr/bin/nohup supervisor -w /node/ /node/server.js > /node/node.out 2>&1 &" >> /start.sh
 
 #docker stop ubuntu-node ; docker rm ubuntu-node ; docker run -it --privileged -v ~/docker/ubuntu-node:/node -p 80:80 --name ubuntu-node land007/ubuntu-node:latest
