@@ -31,8 +31,10 @@ RUN mv /node /node_
 WORKDIR /node
 VOLUME ["/node"]
 
-RUN echo $(date "+%Y-%m-%d_%H:%M:%S") >> /.image_time
-RUN echo "land007/ubuntu-node" >> /.image_name
+RUN echo $(date "+%Y-%m-%d_%H:%M:%S") >> /.image_times
+RUN echo $(date "+%Y-%m-%d_%H:%M:%S") > /.image_time
+RUN echo "land007/ubuntu-node" >> /.image_names
+RUN echo "land007/ubuntu-node" > /.image_name
 
 EXPOSE 80/tcp
 #CMD /check.sh /node ; /etc/init.d/ssh start ; /node/start.sh
