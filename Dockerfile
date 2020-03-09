@@ -19,8 +19,6 @@ RUN . $HOME/.nvm/nvm.sh && nvm install $SHIPPABLE_NODE_VERSION && nvm alias defa
 #RUN ln -s /root/.nvm/versions/node/$SHIPPABLE_NODE_VERSION/bin/supervisor /usr/bin/supervisor
 ENV PATH $PATH:/root/.nvm/versions/node/$SHIPPABLE_NODE_VERSION/bin
 
-ADD check.sh /
-RUN sed -i 's/\r$//' /check.sh && chmod a+x /check.sh
 # Define working directory.
 #RUN mkdir /node
 ADD node /node
@@ -38,7 +36,7 @@ RUN echo $(date "+%Y-%m-%d_%H:%M:%S") >> /.image_times && \
 
 EXPOSE 80/tcp
 #CMD /check.sh /node ; /etc/init.d/ssh start ; /node/start.sh
-RUN echo "/check.sh /node" >> /start.sh && \
+RUN echo "/check.sh /node" >> /task.sh && \
 #RUN echo "supervisor -w /node/ /node/server.js" >> /start.sh && \
 #	echo "/usr/bin/nohup supervisor -w /node/ /node/server.js > /node/node.out 2>&1 &" >> /start.sh
 	echo "supervisor -w /node/ /node/server.js" >> /start.sh
